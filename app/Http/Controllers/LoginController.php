@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -14,6 +19,29 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
+        $rules = [
+            'email' => 'required',
+            'password' => 'required'
+        ];
+
+        $validate = Validator::make($request->all(), $rules);
+        if ($validate->fails()) {
+            return "Salah bang";
+        }
+
+        try {
+            $input = $request->only('email', 'password');
+            $email = $request->input('email');
+            $user = User::where('email', $email)->first();
+            if (Hash::check($request->password, $user->password)) {
+                // return "Berhasil";
+                Auth::guard('web')->attempt($input);
+                return redirect()->route('dashboard');
+            } else {
+                return redirect('login');
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

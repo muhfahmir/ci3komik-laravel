@@ -12,7 +12,6 @@
     <hr class="sidebar-divider my-0">
 
     @include('partials.admin.menu')
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

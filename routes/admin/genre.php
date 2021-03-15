@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [GenreController::class, 'index'])->name('genre');
+Route::get('/create', [GenreController::class, 'create'])->name('genre-create');

@@ -74,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
                 $namespace = basename($filename, '.php');
                 Route::prefix('/' . $namespace)
                     ->middleware(['web', 'auth:web'])
-                    // ->namespace($this->namespace)
+                    ->namespace($this->namespace)
                     ->group($filename);
             }
         }

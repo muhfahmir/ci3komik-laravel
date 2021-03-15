@@ -32,7 +32,7 @@
                         <h1 class="text-center text-white">Login Page</h1>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('/login') }}" method="post">
+                        <form action="{{ url('login') }}" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>

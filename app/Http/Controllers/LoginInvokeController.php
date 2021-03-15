@@ -36,9 +36,9 @@ class LoginInvokeController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 // return "Berhasil";
                 // Auth::guard('web')->attempt($input);
-                return redirect('/dashboard');
+                return redirect()->route('dashboard');
             } else {
-                // return "Gagal";
+                return redirect('login');
             }
         } catch (Exception $e) {
             return $e->getMessage();

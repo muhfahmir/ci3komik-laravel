@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\comicController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LoginInvoke;
+use App\Http\Controllers\LoginInvokeController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +26,8 @@ Route::get('/all-comic', [ComicController::class, 'allComic']);
 Route::get('comic/{id}', [ComicController::class, 'getDetailComic'])->whereNumber('id');
 
 Route::get('/login', [LoginController::class, 'index']);
-// Route::post('/login', [LoginController::class, 'store']);
-Route::post('/login', LoginInvokeController::class);
+Route::post('/login', [LoginController::class, 'store']);
+// Route::post('/login', LoginInvokeController::class);
 
 Route::get('/register', [RegistrationController::class, 'index']);
 Route::post('/register', [RegistrationController::class, 'store']);

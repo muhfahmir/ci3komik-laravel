@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GenreController extends Controller
 {
@@ -14,7 +16,9 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.genrePage');
+        // $genres = DB::table('genre')->get();
+        $genres = Genre::all();
+        return view('pages.admin.genre.genrePage', compact(['genres']));
     }
 
     /**
@@ -25,6 +29,7 @@ class GenreController extends Controller
     public function create()
     {
         //
+        return view('pages.admin.genre.createPage');
     }
 
     /**
