@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [UserController::class, 'index'])->name('user');

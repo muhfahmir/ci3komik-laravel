@@ -35,7 +35,7 @@ class LoginInvokeController extends Controller
             $user = User::where('email', $email)->first();
             if (Hash::check($request->password, $user->password)) {
                 // return "Berhasil";
-                Auth::guard('web')->attempt($input);
+                // Auth::guard('web')->attempt($input);
                 return redirect('/dashboard');
             } else {
                 // return "Gagal";

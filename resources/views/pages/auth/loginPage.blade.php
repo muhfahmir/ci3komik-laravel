@@ -36,7 +36,6 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <label class="sr-only" for="email">Email</label>
                                 <div class="input-group mb-2">
                                     <input type="text" class="form-control" name="email" id="email" placeholder="Email ...">
                                     <div class="input-group-prepend">
@@ -46,9 +45,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <label class="sr-only" for="password">Password</label>
                                 <div class="input-group mb-2">
-                                    <input type="text" class="form-control" name="password" id="password" placeholder="Password ...">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password ...">
                                     <div class="input-group-append">
                                         <button class="input-group-text btn-outline-secondary" type="button">
                                             <i id="passwordIcon" class="far fa-eye"></i>
