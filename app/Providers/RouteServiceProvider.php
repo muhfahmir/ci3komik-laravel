@@ -73,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
             if (file_exists($filename)) {
                 $namespace = basename($filename, '.php');
                 Route::prefix('/' . $namespace)
-                    ->middleware(['web', 'auth:web'])
+                    ->middleware(['web', 'auth'])
                     ->namespace($this->namespace)
                     ->group($filename);
             }

@@ -28,6 +28,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    @include('partials.flash')
                     @yield('content')
                 </div>
                 <!-- /.container-fluid -->
@@ -62,11 +63,13 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+    
+    @yield('modals')
 
     @include('partials.admin.footer-script')
 

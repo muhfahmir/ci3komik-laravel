@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     //
+    protected $user;
+    public function __construct()
+    {
+        if(!Auth::check()) 
+        {
+            return redirect()->route('login');
+        }
+    }
     public function index()
     {
         return view('pages.auth.loginPage');

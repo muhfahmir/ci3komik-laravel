@@ -40,7 +40,7 @@ class RegistrationController extends Controller
         //
         $rules = [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
             'password_confirmation' => 'required',
         ];

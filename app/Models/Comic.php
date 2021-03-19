@@ -11,7 +11,9 @@ class Comic extends Model
     use HasFactory;
     protected $table = "comics";
     protected $primaryKey = "id_komik";
-
+    protected $fillable = [
+        'judul','jenis','penulis','deskripsi','status','rilis','usia_pembaca','imageUrl','is_active'
+    ];
     public function getAllComic()
     {
         $comics = DB::table('comics')

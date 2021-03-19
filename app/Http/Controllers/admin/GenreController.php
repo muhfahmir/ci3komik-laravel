@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class GenreController extends Controller
 {
@@ -14,6 +16,14 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $user;
+    public function __construct()
+    {
+        if(!Auth::check()) 
+        {
+            return redirect()->route('login');
+        }
+    }
     public function index()
     {
         // $genres = DB::table('genre')->get();
@@ -41,6 +51,21 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            "name"=>"required"
+        ]);
+
+        if($validator->fails()){
+            return redirect('insert')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $genre = Genre::create([
+            'nama_genre' => $request->name,
+        ]);
+        // kasih pengembalian session_flash pada create biasa
+        return redirect()->route('genre')->with('status',"Berhasil menambahkan Genre");
     }
 
     /**
@@ -62,7 +87,7 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $id;
     }
 
     /**
@@ -75,6 +100,7 @@ class GenreController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $id;
     }
 
     /**
@@ -85,6 +111,8 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $genre = Genre::find($id);
+        $genre->delete();
+        return redirect()->route('genre')->with('status',"Berhasil menghapus Genre");
     }
 }

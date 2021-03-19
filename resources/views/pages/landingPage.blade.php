@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             @foreach($comicsOthers as $comic)
-            <div class="col-md-2 col-4 mb-5">
+            <div class="col-md-2 col-4 mb-5 pb-3">
                 <div class="position-relative">
                     <div class="card card-featured border-0">
                         <a href="{{ url('comic/'.$comic->id_komik) }}">

@@ -25,7 +25,7 @@ Route::get('/', [ComicController::class, 'index']);
 Route::get('/all-comic', [ComicController::class, 'allComic']);
 Route::get('comic/{id}', [ComicController::class, 'getDetailComic'])->whereNumber('id');
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 // Route::post('/login', LoginInvokeController::class);
 

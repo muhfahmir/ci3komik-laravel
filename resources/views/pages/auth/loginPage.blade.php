@@ -24,6 +24,11 @@
 <!-- END NAVBAR -->
 
 <section id="banner">
+    @if (session('logout'))
+    <div class="alert alert-success">
+        {{ session('logout') }}
+    </div>
+@endif
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-7">
