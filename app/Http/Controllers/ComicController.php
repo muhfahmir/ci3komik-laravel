@@ -21,8 +21,15 @@ class ComicController extends Controller
     public function index()
     {
         // cara 1 get data
-        $comicsHot = $this->comic_model->getHotestComic();
-        $comicsOther = $this->comic_model->getNotHotestComic();
+        $comicsHot = DB::table('comics')
+        ->orderBy('rating', 'desc')
+        ->limit(4)
+        ->get();
+        $comicsOther = DB::table('comics')
+        ->orderBy('rating', 'desc')
+        ->offset(5)
+        ->limit(12)
+        ->get();
 
         // cara 2 get data
         // $comics = DB::table('comics')->get();
@@ -32,14 +39,18 @@ class ComicController extends Controller
     }
     public function allComic()
     {
-        $comics = $this->comic_model->getAllComic();
+        $comics = DB::table('comics')
+        ->orderBy('rating', 'desc')
+        ->paginate(12);
         return view('pages.allComicPage', compact(['comics']));
         // return $comicsHot;
     }
 
     public function getDetailComic($id)
     {
-        $comic = $this->comic_model->getComicByID($id);
+        $comic = DB::table('comics')
+        ->where('id_komik', $id)
+        ->first();
         $genreComic =  DB::table('detail_comic')->where('id_comic',$id)->get();
         $genre = Genre::all();
         $newGenre = [];
@@ -50,7 +61,11 @@ class ComicController extends Controller
                 }
             }
         }
-        $comicsRelated = $this->comic_model->getRelatedComic($comic->jenis);
+        $comicsRelated = DB::table('comics')
+        ->orderBy('rating', 'desc')
+        ->where('jenis', $comic->jenis)
+        ->limit(10)
+        ->get();
         return view('pages.detailComicPage', compact(['comic', 'comicsRelated','newGenre']));
     }
 }
