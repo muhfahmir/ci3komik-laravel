@@ -9,7 +9,7 @@
         <h1 class="my-heading text-green">Hot Comics</h1>
         <div class="row">
             @foreach($comicsHots as $comic)
-            <div class="col-md-3">
+            <div class="col-md-3 col-6 mb-3">
                 <a class="card bg-dark card-featured card-gradient" href="{{ url('comic/'.$comic->id_komik) }}">
                     <img src="{{ asset('images/'.$comic->imageUrl) }}" class="card-img" alt="Shingeki no Kyojin">
                     <div class="card-img-overlay text-center">

@@ -25,4 +25,4 @@ Route::post('/store', [GenreController::class, 'store'])->name('genre-store');
 Route::get('/delete/${id}', [GenreController::class, 'destroy'])->name('genre-delete');
 
 Route::get('/edit/${id}', [GenreController::class, 'edit'])->name('genre-edit');
-Route::post('/update/${id}', [GenreController::class, 'index'])->name('genre-update');
+Route::post('/update/${id}', [GenreController::class, 'update'])->name('genre-update');

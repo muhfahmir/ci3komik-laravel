@@ -4,7 +4,11 @@
 <head>
 
     @include('partials.admin.head')
-
+<style>
+    .my-error{
+        color: red;
+    }
+</style>
 </head>
 
 <body id="page-top">

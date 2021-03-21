@@ -24,11 +24,16 @@
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul Komik</label>
                                 <input type="text" class="form-control" id="judul" name="judul" placeholder="masukkan judul ..." aria-describedby="emailHelp">
-                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                                @if($errors->has('judul'))
+                                <div class="my-error ">{{ $errors->first('judul') }}</div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label for="jenis" class="form-label">Jenis Komik</label>
                                 <input type="text" class="form-control" id="jenis" name="jenis" placeholder="jenis ...">
+                                @if($errors->has('jenis'))
+                                <div class="my-error ">{{ $errors->first('jenis') }}</div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
@@ -40,27 +45,44 @@
                                 </div>
                             </div>
                         </div>
+                        @if($errors->has('image'))
+                        <div class="col">
+                            <div class="my-error ">{{ $errors->first('image') }}</div>
+                        </div>
+                        @endif
                     </div>
                     <h5 class="card-title">Detail Komik <hr></h5>
                     <div class="form-row mb-3">
                         <div class="col-md-8">
                             <label for="penulis">Penulis</label>
                             <input type="text" class="form-control" id="penulis" name="penulis">
+                            @if($errors->has('penulis'))
+                                <div class="my-error ">{{ $errors->first('penulis') }}</div>
+                            @endif
                         </div>
                         <div class="col-md-4">
                             <label for="rilis">Tahun Rilis</label>
                             <input type="text" class="form-control" id="rilis" name="rilis">
-                            </div>
+                            @if($errors->has('rilis'))
+                                <div class="my-error ">{{ $errors->first('rilis') }}</div>
+                            @endif
+                        </div>
                     </div>
                     <div class="form-row mb-3">
                         <div class="col-md-4">
                             <label for="rating">Rating</label>
                             <input type="text" class="form-control" id="rating" name="rating">
-                                                                    </div>
+                            @if($errors->has('rating'))
+                                <div class="my-error ">{{ $errors->first('rating') }}</div>
+                            @endif
+                        </div>
                         <div class="col-md-4">
                             <label for="usia_pembaca">Usia Pembaca</label>
                             <input type="text" class="form-control" id="usia_pembaca" name="usia_pembaca">
-                                                                    </div>
+                            @if($errors->has('usia_pembaca'))
+                                <div class="my-error ">{{ $errors->first('usia_pembaca') }}</div>
+                            @endif
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group" id="form-status">
                                 <label>Status</label>
@@ -92,6 +114,9 @@
                         <label for="deskripsi">Deskripsi Komik</label>
                         <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
                     </div>
+                    @if($errors->has('deskripsi'))
+                        <div class="my-error ">{{ $errors->first('deskripsi') }}</div>
+                    @endif
                 </div>
 
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,21 +52,26 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator::make($request->all(), [
-            "name"=>"required"
-        ]);
-
-        if($validator->fails()){
-            return redirect('insert')
-                ->withInput()
-                ->withErrors($validator);
+        try {
+            $validator = Validator::make($request->all(), [
+                "name"=>"required"
+            ]);
+    
+            if($validator->fails()){
+                return redirect('insert')
+                    ->withInput()
+                    ->withErrors($validator);
+            }
+    
+            $genre = Genre::create([
+                'nama_genre' => $request->name,
+            ]);
+            // kasih pengembalian session_flash pada create biasa
+            return redirect()->route('genre')->with('status',"Berhasil menambahkan Genre");
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
-
-        $genre = Genre::create([
-            'nama_genre' => $request->name,
-        ]);
-        // kasih pengembalian session_flash pada create biasa
-        return redirect()->route('genre')->with('status',"Berhasil menambahkan Genre");
+       
     }
 
     /**
@@ -111,8 +117,13 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        $genre = Genre::find($id);
-        $genre->delete();
-        return redirect()->route('genre')->with('status',"Berhasil menghapus Genre");
+        try {
+            $genre = Genre::find($id);
+            $genre->delete();
+            return redirect()->route('genre')->with('status',"Berhasil menghapus Genre");
+        }catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
     }
 }

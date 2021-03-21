@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -28,25 +29,26 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:4'
         ];
 
         $validate = Validator::make($request->all(), $rules);
+        // return $validate;
         if ($validate->fails()) {
-            return "Salah bang";
+            return Redirect::back()->withErrors($validate);
         }
 
         try {
             $input = $request->only('email', 'password');
             $email = $request->input('email');
             $user = User::where('email', $email)->first();
-            if (Hash::check($request->password, $user->password)) {
+            if ($user && Hash::check($request->password, $user->password)) {
                 // return "Berhasil";
                 Auth::guard('web')->attempt($input);
                 return redirect()->route('dashboard');
             } else {
-                return redirect('login');
+                return redirect('login')->withErrors($validate)->withInput();
             }
         } catch (Exception $e) {
             return $e->getMessage();

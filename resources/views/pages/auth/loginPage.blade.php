@@ -25,10 +25,12 @@
 
 <section id="banner">
     @if (session('logout'))
-    <div class="alert alert-success">
-        {{ session('logout') }}
-    </div>
-@endif
+        <div class="alert alert-success">
+            {{ session('logout') }}
+        </div>
+    @else
+    @include('partials.flash')
+    @endif
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-7">
@@ -42,11 +44,14 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <div class="input-group mb-2">
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Email ...">
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Email ..." value="{{ old('email') }}">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
                                 </div>
+                                @if($errors->has('email'))
+                                <div class="error ">{{ $errors->first('email') }}</div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
@@ -61,6 +66,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if($errors->has('password'))
+                                <div class="error ">{{ $errors->first('password') }}</div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary bg-green w-100 shadow-none" type="submit" name="btn-login" id="btn-login">

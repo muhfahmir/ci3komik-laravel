@@ -16,7 +16,9 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="masukkan nama lengkap ..." aria-describedby="emailHelp">
-                        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                        @if($errors->has('name'))
+                        <div class="my-error ">{{ $errors->first('name') }}</div>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -26,6 +28,9 @@
                                 <div class="input-group-text">@</div>
                             </div>
                         </div>
+                        @if($errors->has('email'))
+                        <div class="my-error ">{{ $errors->first('email') }}</div>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <div class="row">
@@ -45,6 +50,15 @@
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="confirm password ..." autocomplete="off">
                             </div>
+                            @if($errors->has('password'))
+                            <div class="col">
+                                <div class="my-error ">{{ $errors->first('password') }}</div>
+                            </div>
+                            @elseif ($errors->has('password_confirmation'))
+                            </div>
+                                <div class="my-error ">{{ $errors->first('password_confirmation') }}</div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="mb-3">

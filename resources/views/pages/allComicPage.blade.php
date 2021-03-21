@@ -2,14 +2,14 @@
 @section('title', 'All Komik')
 @section('app')
 @include('partials.navbar')
-<section id="content">
+<section id="content" style="margin-top: 90px">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="my-heading text-green">All Comics</h1>
         </div>
         <div class="row">
             @foreach($comics as $comic)
-            <div class="col-md-2 col-4 mb-5">
+            <div class="col-md-2 col-4 mb-5 pb-3">
                 <div class="position-relative">
                     <div class="card card-featured border-0">
                         <a href="{{ url('comic/'.$comic->id_komik) }}">

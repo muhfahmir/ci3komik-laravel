@@ -2,13 +2,12 @@
 // $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Poppins',
-sans-serif;
+$font-family-sans-serif: "Poppins", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$white:#ffffff;
+$white: #ffffff;
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
@@ -16,7 +15,11 @@ $pink: #f66d9b;
 $red: #e3342f;
 $orange: #f6993f;
 $yellow: #ffed4a;
-$green: #4AA835;
+$green: #4aa835;
 $dark-green: #246f14;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+// my variable
+$small: 300px;
+$medium: 900px;

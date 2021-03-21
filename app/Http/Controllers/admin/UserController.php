@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -53,26 +54,31 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required_with:password_confirmation|same:password_confirmation',
+            'password' => 'required_with:password_confirmation|same:password_confirmation|min:4',
             'password_confirmation' => 'required',
         ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect('user/create')
-                ->withErrors($validator)
-                ->withInput();
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect('user/create')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+    
+            DB::beginTransaction();
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->is_active = $request->status || 0 ;
+            $user->save();
+            DB::commit();
+            
+             return redirect()->route('user')->with('status', "Berhasil menambahkan user");
+        }catch (Exception $e) {
+            return $e->getMessage();
         }
-
-        DB::beginTransaction();
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->is_active = $request->status || 0 ;
-        $user->save();
-        DB::commit();
-        
-         return redirect()->route('user')->with('status', "Berhasil menambahkan user");
+       
     }
 
     /**
@@ -111,19 +117,24 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
         ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect('user')->with('status-danger','Gagal Update User');
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect('user')->with('status-danger','Gagal Update User');
+            }
+    
+            $user = User::find($id);
+            
+            DB::beginTransaction();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            DB::commit();
+            return redirect('user')->with('status',"Berhasil mengupdate User");
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
-
-        $user = User::find($id);
-        
-        DB::beginTransaction();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-        DB::commit();
-        return redirect('user')->with('status',"Berhasil mengupdate User");
+       
     }
 
     /**
@@ -134,9 +145,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $genre = User::find($id);
-        $genre->delete();
-        return redirect()->route('user')->with('status','Berhasil menghapus user');
+        try {
+            $genre = User::find($id);
+            $genre->delete();
+            return redirect()->route('user')->with('status','Berhasil menghapus user');
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
     }
 
     public function logout(){

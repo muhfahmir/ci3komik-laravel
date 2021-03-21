@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use App\Models\DetailComic;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,8 +40,17 @@ class ComicController extends Controller
     public function getDetailComic($id)
     {
         $comic = $this->comic_model->getComicByID($id);
+        $genreComic =  DB::table('detail_comic')->where('id_comic',$id)->get();
+        $genre = Genre::all();
+        $newGenre = [];
+        foreach ($genreComic as $gc) {
+            foreach ($genre as $g ) {
+                if($g->id_genre == $gc->id_genre){
+                    $newGenre [] = $g->nama_genre;
+                }
+            }
+        }
         $comicsRelated = $this->comic_model->getRelatedComic($comic->jenis);
-        // return $comicsRelated;
-        return view('pages.detailComicPage', compact(['comic', 'comicsRelated']));
+        return view('pages.detailComicPage', compact(['comic', 'comicsRelated','newGenre']));
     }
 }
